@@ -3,58 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>每月現金流計算器</title>
+    <title>現金流計算器 | 財務管理工具</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid mt-2">
-        <h1 class="text-center mb-2 fs-4">每月現金流計算器</h1>
-        <div class="alert alert-info mb-2 py-1">
-            <small>輸入每月金額，系統自動計算年總額。如為年薪，請將月數設為12。</small>
-        </div>
-
-        <!-- 收入來源 Section -->
-        <div class="card mb-2">
-            <div class="card-header bg-success text-white py-1">
-                <h2 class="h6 mb-0">收入來源</h2>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="container">
+                <h1 class="app-title"><i class="fas fa-calculator"></i> 現金流計算器</h1>
+                <p class="app-description">追蹤和分析您的財務狀況，輕鬆掌握每月現金流</p>
             </div>
-            <div class="card-body p-1">
-                <div id="incomeItems"></div>
-                <button id="addIncome" class="btn btn-sm btn-outline-success w-100 mt-1">新增收入</button>
-                <div class="mt-1">
-                    <h3 class="fs-6 mb-0">年收入總計: <span id="incomeTotal">0</span> HKD</h3>
+        </header>
+        
+        <div class="container main-content">
+            <div class="app-instructions">
+                <i class="fas fa-info-circle"></i>
+                <span>輸入每月金額，系統自動計算年總額。如為年薪，請將月數設為12。</span>
+            </div>
+
+            <!-- 收入來源 Section -->
+            <div class="card finance-card income-card mb-4">
+                <div class="card-header">
+                    <h2><i class="fas fa-arrow-circle-down"></i> 收入來源</h2>
+                </div>
+                <div class="card-body">
+                    <div id="incomeItems" class="items-container"></div>
+                    <button id="addIncome" class="btn btn-add"><i class="fas fa-plus"></i> 新增收入項目</button>
+                    <div class="total-container">
+                        <div class="total-label">年收入總計</div>
+                        <div class="total-amount income-amount"><span id="incomeTotal">0</span> HKD</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 支出來源 Section -->
-        <div class="card mb-2">
-            <div class="card-header bg-danger text-white py-1">
-                <h2 class="h6 mb-0">支出來源 (含儲蓄/投資)</h2>
-            </div>
-            <div class="card-body p-1">
-                <div id="expenseItems"></div>
-                <button id="addExpense" class="btn btn-sm btn-outline-danger w-100 mt-1">新增支出</button>
-                <div class="mt-1">
-                    <h3 class="fs-6 mb-0">年支出總計: <span id="expenseTotal">0</span> HKD</h3>
+            <!-- 支出來源 Section -->
+            <div class="card finance-card expense-card mb-4">
+                <div class="card-header">
+                    <h2><i class="fas fa-arrow-circle-up"></i> 支出來源</h2>
+                    <span class="header-subtitle">(含儲蓄/投資)</span>
+                </div>
+                <div class="card-body">
+                    <div id="expenseItems" class="items-container"></div>
+                    <button id="addExpense" class="btn btn-add"><i class="fas fa-plus"></i> 新增支出項目</button>
+                    <div class="total-container">
+                        <div class="total-label">年支出總計</div>
+                        <div class="total-amount expense-amount"><span id="expenseTotal">0</span> HKD</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 現金流計算 Section -->
-        <div class="card mb-2">
-            <div class="card-header bg-primary text-white py-1">
-                <h2 class="h6 mb-0">每月現金流</h2>
+            <!-- 現金流計算 Section -->
+            <div class="card finance-card result-card mb-4">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line"></i> 每月現金流</h2>
+                </div>
+                <div class="card-body">
+                    <div class="cashflow-result">
+                        <div class="result-label">每月現金流</div>
+                        <div class="result-amount" id="cashflowResultContainer">
+                            <span id="monthlyCashflow">0</span> <span class="currency">HKD</span>
+                        </div>
+                    </div>
+                    <div class="calculation-formula">
+                        <i class="fas fa-calculator"></i> 計算公式: (年收入 - 年支出) ÷ 12
+                    </div>
+                </div>
             </div>
-            <div class="card-body p-1">
-                <h3 class="fs-5 mb-0 text-primary">每月現金流: <span id="monthlyCashflow">0</span> HKD</h3>
-                <small class="text-muted">計算公式: (年收入 - 年支出) ÷ 12</small>
+
+            <!-- 工具列按鈕 -->
+            <div class="toolbar mb-4">
+                <button id="exportReport" class="btn btn-primary"><i class="fas fa-file-export"></i> 匯出財務報表 (Beta)</button>
+            </div>
+        </div>
+        
+        <footer class="app-footer">
+            <div class="container">
+                <p>© 2025 現金流計算器 | 財務管理工具</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 報表模態框 -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportModalLabel">財務現金流報表</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="reportContent" class="report-content">
+                        <!-- 報表內容將由 JavaScript 動態生成 -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary" id="printReport"><i class="fas fa-print"></i> 列印報表</button>
+                    <button type="button" class="btn btn-success" id="downloadPDF"><i class="fas fa-file-pdf"></i> 下載 PDF</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
