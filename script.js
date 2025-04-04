@@ -143,11 +143,12 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 itemToRemove.remove();
 
-                if(itemToRemove.id.split("-")[0] == 'income'){
-                    incomeCounter--;
-                }else if(itemToRemove.id.split("-")[0] == 'expense'){
-                    expenseCounter--;
-                }
+                //TODO reorder the item order
+                // if(itemToRemove.id.split("-")[0] == 'income'){
+                //     incomeCounter--;
+                // }else if(itemToRemove.id.split("-")[0] == 'expense'){
+                //     expenseCounter--;
+                // }
                 calculateTotals();
             }, 300);
         });
