@@ -15,7 +15,7 @@
         </div>
         <div class="app-instructions">
           <i class="fas fa-info-circle"></i>
-          <span>輸入每月金額，系統自動計算年總額。如為年薪，請將月數設為12。 </span>
+          <span>輸入每月金額，系統自動計算年總額。如為年薪，請將月數設為12。</span>
         </div>
         
         <div class="row">
