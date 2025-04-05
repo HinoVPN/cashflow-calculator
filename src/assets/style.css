@@ -321,15 +321,26 @@ body {
     margin-top: auto;
 }
 
-/* Responsive Styles */
+/* 調整主要容器在不同屏幕尺寸下的最大寬度 */
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding-right: var(--spacing-md);
+    padding-left: var(--spacing-md);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* 修改媒體查詢 */
 @media (min-width: 576px) {
     body {
         font-size: 15px;
     }
     
     .container {
-        max-width: 600px;
-        padding: 0 var(--spacing-md);
+        max-width: 95%;
+        padding-right: var(--spacing-lg);
+        padding-left: var(--spacing-lg);
     }
     
     .app-title {
@@ -343,7 +354,32 @@ body {
 
 @media (min-width: 768px) {
     .container {
-        max-width: 700px;
+        max-width: 95%;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 95%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 90%;
+    }
+}
+
+/* 為超寬屏幕設置最大寬度限制，避免內容過分拉伸 */
+@media (min-width: 1800px) {
+    .container {
+        max-width: 1800px;
     }
 }
 
