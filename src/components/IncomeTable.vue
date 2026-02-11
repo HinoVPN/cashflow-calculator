@@ -14,16 +14,16 @@
             <th class="col-amount">金額</th>
             <th class="col-months">月數</th>
             <th class="col-currency">貨幣</th>
-            <th class="col-annual">年度 (HKD)</th>
+            <th class="col-annual">年度</th>
             <th class="col-actions"></th>
           </tr>
         </thead>
         <tbody>
           <tr v-if="financeStore.incomeItems.length === 0">
-            <td colspan="7" class="empty-cell">尚未添加收入項目</td>
+            <td colspan="6" class="empty-cell">尚未添加收入項目</td>
           </tr>
           <tr v-for="item in financeStore.incomeItems" :key="item.id" class="data-row">
-            <td>
+            <td class="col-name">
               <input type="text" class="form-control form-control-sm" placeholder="名稱 (選填)" v-model="item.name" />
             </td>
             <td class="col-amount">
@@ -54,9 +54,8 @@
         </tbody>
         <tfoot v-if="financeStore.incomeItems.length > 0">
           <tr class="total-row">
-            <td colspan="4" class="total-label">年收入總計</td>
-            <td class="amount-cell total-amount">{{ financeStore.formatNumber(financeStore.totalIncome) }}</td>
-            <td></td>
+            <td colspan="1" class="total-label">年收入總計</td>
+            <td colspan="5" class="amount-cell total-amount">{{ financeStore.formatNumber(financeStore.totalIncome) }}</td>
           </tr>
         </tfoot>
       </table>

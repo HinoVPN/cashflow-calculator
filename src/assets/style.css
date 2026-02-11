@@ -179,11 +179,12 @@ body {
     overflow-x: auto;
 }
 
-/* Table: same compact font size for desktop and mobile to avoid cropping */
+/* Table: fixed layout so 名稱/金額/月數/貨幣 never resize when 年度 value gets long */
 .finance-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.75rem;
+    table-layout: fixed;
 }
 
 .finance-table th,
@@ -191,6 +192,7 @@ body {
     padding: 2px 4px;
     border-bottom: 1px solid var(--color-border);
     vertical-align: middle;
+    text-align: left;
 }
 
 .finance-table thead th {
@@ -214,6 +216,7 @@ body {
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
+    text-align: left;
 }
 
 /* Months column: extra small so number does not get cropped */
@@ -231,20 +234,25 @@ body {
     background-image: none;
 }
 
+/* Fixed column widths: 名稱/金額/月數/貨幣 never change when 年度 amount grows */
+.finance-table .col-name { width: 100px; }
 .finance-table .col-amount { width: 82px; }
-.finance-table .col-months { width: 52px; min-width: 52px; }
-.finance-table .col-currency { width: 64px; }
-.finance-table .col-annual { width: 88px; text-align: right; }
-.finance-table .col-actions { width: 40px; text-align: center; }
+.finance-table .col-months { width: 52px; }
+.finance-table .col-currency { width: 50px; }
+.finance-table .col-annual { width: 20%; }
+.finance-table .col-actions { width: 36px; text-align: center; }
 
 .finance-table .amount-cell {
     font-weight: 500;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: auto;
 }
 
 .income-section .amount-cell.total-amount {
     color: var(--color-income);
     font-weight: 700;
+    text-align: right;
 }
 
 .expense-section .amount-cell.total-amount {
@@ -265,8 +273,12 @@ body {
 }
 
 .finance-table tfoot .total-label {
-    text-align: right;
+    text-align: left;
     padding-right: var(--spacing-sm);
+}
+
+.finance-table tfoot .amount-cell.total-amount {
+    text-align: left;
 }
 
 .finance-table .btn-remove {
@@ -615,10 +627,12 @@ body {
     .finance-table-section .table-header h2 {
         font-size: 0.9rem;
     }
-    .finance-table .col-amount { width: 72px; }
-    .finance-table .col-months { width: 48px; min-width: 48px; }
-    .finance-table .col-currency { width: 58px; }
-    .finance-table .col-annual { width: 78px; }
+    .finance-table .col-name { width: 80px; min-width: 80px; max-width: 80px; }
+    .finance-table .col-amount { width: 60px; min-width: 60px; max-width: 60px; }
+    .finance-table .col-months { width: 32px; min-width: 32px; max-width: 32px; }
+    .finance-table .col-currency { width: 43px; min-width: 43px; max-width: 43px; }
+    .finance-table .col-annual { width: 60px; min-width: 60px; max-width: 60px; }
+    .finance-table .col-actions { width: 20px; min-width: 20px; max-width: 20px; }
 }
 
 /* 修改媒體查詢 */
