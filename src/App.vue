@@ -9,27 +9,25 @@
     
     <main class="main-content">
       <div class="container">
-        <div class="app-instructions">
+        <div class="app-instructions compact">
           <i class="fas fa-info-circle"></i>
-          <span>添加您的收入和支出項目，查看您的現金流情況。</span>
-        </div>
-        <div class="app-instructions">
-          <i class="fas fa-info-circle"></i>
-          <span>輸入每月金額，系統自動計算年總額。如為年薪，請將月數設為12。</span>
+          <span>添加收入與支出項目，輸入每月金額、月數與貨幣，系統自動計算年總額 (HKD)。年薪請將月數設為 12。</span>
         </div>
         
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <IncomeCard />
-          </div>
-          <div class="col-md-6 mb-4">
-            <ExpenseCard />
-          </div>
+        <div class="tables-row">
+          <IncomeTable />
+          <ExpenseTable />
         </div>
         
         <div class="row">
           <div class="col-md-12 mb-4">
             <ResultCard />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-4">
+            <RateSettings />
           </div>
         </div>
       </div>
@@ -45,9 +43,10 @@
 
 <script setup>
 import { computed } from 'vue';
-import IncomeCard from './components/IncomeCard.vue';
-import ExpenseCard from './components/ExpenseCard.vue';
+import IncomeTable from './components/IncomeTable.vue';
+import ExpenseTable from './components/ExpenseTable.vue';
 import ResultCard from './components/ResultCard.vue';
+import RateSettings from './components/RateSettings.vue';
 
 // 計算當前年份
 const currentYear = computed(() => new Date().getFullYear());

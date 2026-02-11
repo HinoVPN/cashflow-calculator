@@ -15,6 +15,9 @@ export const useFinanceStore = defineStore('finance', () => {
     'GBP': 9.8,
     'JPY': 0.055
   };
+
+  // 全域匯率設定（可由使用者在畫面底部統一調整）
+  const rates = ref({ ...defaultRates });
   
   // 生成唯一ID
   const generateId = () => {
@@ -88,17 +91,27 @@ export const useFinanceStore = defineStore('finance', () => {
   // 更新匯率
   const updateRate = (item, currency) => {
     item.currency = currency;
-    item.rate = defaultRates[currency] || 1;
   };
   
+  // 取得指定貨幣匯率（如未設定則回傳 1）
+  const getRate = (currency) => {
+    return rates.value[currency] || 1;
+  };
+
+  // 更新全域匯率供使用者編輯
+  const updateGlobalRate = (currency, value) => {
+    const num = parseFloat(value);
+    rates.value[currency] = Number.isNaN(num) ? 1 : num;
+  };
+
   // 計算收入小計
   const calculateIncomeSubtotal = (item) => {
-    return (parseFloat(item.amount) || 0) * (parseFloat(item.months) || 0) * (parseFloat(item.rate) || 0);
+    return (parseFloat(item.amount) || 0) * (parseFloat(item.months) || 0) * getRate(item.currency);
   };
   
   // 計算支出小計
   const calculateExpenseSubtotal = (item) => {
-    return (parseFloat(item.amount) || 0) * (parseFloat(item.months) || 0) * (parseFloat(item.rate) || 0);
+    return (parseFloat(item.amount) || 0) * (parseFloat(item.months) || 0) * getRate(item.currency);
   };
   
   // 計算收入總額（年度）
@@ -196,11 +209,14 @@ export const useFinanceStore = defineStore('finance', () => {
     incomeItems,
     expenseItems,
     defaultRates,
+    rates,
     addIncomeItem,
     addExpenseItem,
     removeIncomeItem,
     removeExpenseItem,
     updateRate,
+    getRate,
+    updateGlobalRate,
     calculateIncomeSubtotal,
     calculateExpenseSubtotal,
     totalIncome,

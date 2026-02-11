@@ -88,6 +88,272 @@ body {
     font-size: 1rem;
 }
 
+.app-instructions.compact {
+    margin-bottom: var(--spacing-md);
+}
+
+/* Tables row: Income | Expense side by side */
+.tables-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    align-items: start;
+}
+
+@media (max-width: 991px) {
+    .tables-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Finance table section (replaces card) */
+.finance-table-section {
+    background: var(--color-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.finance-table-section .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.income-section .table-header {
+    background-color: var(--color-income-light);
+    color: var(--color-income);
+}
+
+.expense-section .table-header {
+    background-color: var(--color-expense-light);
+    color: var(--color-expense);
+}
+
+.finance-table-section .table-header h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.finance-table-section .table-header h2 i {
+    margin-right: var(--spacing-sm);
+}
+
+.finance-table-section .header-subtitle {
+    margin-left: var(--spacing-xs);
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.btn-add-row {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.income-section .btn-add-row:hover {
+    background: var(--color-income);
+    color: white;
+    border-color: var(--color-income);
+}
+
+.expense-section .btn-add-row:hover {
+    background: var(--color-expense);
+    color: white;
+    border-color: var(--color-expense);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+/* Table: same compact font size for desktop and mobile to avoid cropping */
+.finance-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+}
+
+.finance-table th,
+.finance-table td {
+    padding: 2px 4px;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.finance-table thead th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.finance-table tbody .data-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.finance-table .form-control,
+.finance-table .form-select {
+    padding: 2px 4px;
+    font-size: 0.75rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-border);
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Months column: extra small so number does not get cropped */
+.finance-table .col-months .form-control {
+    font-size: 0.7rem;
+    padding: 2px 2px;
+    max-width: 100%;
+}
+
+/* Remove default select dropdown icon so option value is readable */
+.finance-table .form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none;
+}
+
+.finance-table .col-amount { width: 82px; }
+.finance-table .col-months { width: 52px; min-width: 52px; }
+.finance-table .col-currency { width: 64px; }
+.finance-table .col-annual { width: 88px; text-align: right; }
+.finance-table .col-actions { width: 40px; text-align: center; }
+
+.finance-table .amount-cell {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+.income-section .amount-cell.total-amount {
+    color: var(--color-income);
+    font-weight: 700;
+}
+
+.expense-section .amount-cell.total-amount {
+    color: var(--color-expense);
+    font-weight: 700;
+}
+
+.finance-table .empty-cell {
+    text-align: center;
+    color: var(--color-text-light);
+    padding: var(--spacing-lg);
+    font-size: 0.8rem;
+}
+
+.finance-table tfoot .total-row {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.finance-table tfoot .total-label {
+    text-align: right;
+    padding-right: var(--spacing-sm);
+}
+
+.finance-table .btn-remove {
+    padding: var(--spacing-xs);
+    color: var(--color-text-light);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    transition: color 0.2s, background 0.2s;
+}
+
+.income-section .btn-remove:hover {
+    color: var(--color-expense);
+    background: var(--color-expense-light);
+}
+
+.expense-section .btn-remove:hover {
+    color: var(--color-income);
+    background: var(--color-income-light);
+}
+
+/* Global rate settings section at bottom */
+.rate-settings-section {
+    background: var(--color-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+}
+
+.rate-settings-header h2 {
+    font-size: 1rem;
+    margin: 0 0 var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    color: var(--color-primary);
+}
+
+.rate-settings-header h2 i {
+    margin-right: var(--spacing-sm);
+}
+
+.rate-settings-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+}
+
+.rate-settings-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.rate-settings-table th,
+.rate-settings-table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.rate-settings-table thead th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.rate-code {
+    font-weight: 600;
+}
+
+.rate-input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.rate-input-prefix,
+.rate-input-suffix {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    white-space: nowrap;
+}
+
+.rate-input-group .form-control {
+    max-width: 120px;
+}
+
 /* Card Styles */
 .finance-card {
     border: none;
@@ -329,6 +595,30 @@ body {
     padding-left: var(--spacing-md);
     margin-right: auto;
     margin-left: auto;
+}
+
+/* Mobile: page-level smaller fonts; table already uses same compact style as desktop */
+@media (max-width: 767px) {
+    body {
+        font-size: 13px;
+    }
+    .app-title {
+        font-size: 1.35rem;
+    }
+    .app-description {
+        font-size: 0.8rem;
+    }
+    .app-instructions {
+        font-size: 0.8rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    .finance-table-section .table-header h2 {
+        font-size: 0.9rem;
+    }
+    .finance-table .col-amount { width: 72px; }
+    .finance-table .col-months { width: 48px; min-width: 48px; }
+    .finance-table .col-currency { width: 58px; }
+    .finance-table .col-annual { width: 78px; }
 }
 
 /* 修改媒體查詢 */
