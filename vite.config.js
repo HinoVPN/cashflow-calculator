@@ -4,5 +4,5 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: '/cashflow-calculator/', // 設置GitHub Pages的基本路徑
+  base: '/',
 }) 

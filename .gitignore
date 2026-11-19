@@ -2,6 +2,7 @@
 node_modules
 .DS_Store
 
+
 # 構建目錄
 /dist
 /build
@@ -35,3 +36,10 @@ lerna-debug.log*
 # 緩存
 .cache
 .temp
+
+# 文件
+docs
+.docs/
+.superpowers/
+.env.production
+cashflow-calculator.tar

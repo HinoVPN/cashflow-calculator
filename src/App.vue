@@ -1,58 +1,98 @@
 <template>
-  <div class="app-container">
-    <header class="app-header">
-      <div class="container">
-        <h1 class="app-title">現金流計算器</h1>
-        <p class="app-description">輕鬆追蹤您的收入和支出，計算現金流量，做出明智的財務決策。</p>
-      </div>
-    </header>
-    
-    <main class="main-content">
-      <div class="container">
-        <div class="app-instructions compact">
-          <i class="fas fa-info-circle"></i>
-          <span>添加收入與支出項目，輸入每月金額、月數與貨幣，系統自動計算年總額 (HKD)。年薪請將月數設為 12。</span>
-        </div>
-        
-        <div class="tables-row">
-          <IncomeTable />
-          <ExpenseTable />
-        </div>
-        
-        <div class="row">
-          <div class="col-md-12 mb-4">
-            <ResultCard />
+  <div class="d-flex flex-column min-vh-100 bg-body-tertiary">
+    <AppHeader />
+
+    <main class="flex-grow-1 py-4">
+      <div class="container" style="max-width: 1100px">
+
+        <div class="row g-3 mb-4">
+          <div class="col-lg-6">
+            <ItemTable type="income" />
+          </div>
+          <div class="col-lg-6">
+            <ItemTable type="expense" />
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12 mb-4">
-            <RateSettings />
-          </div>
+        <div class="mb-3">
+          <SummaryBar />
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mb-4">
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            @click="openRates"
+          >
+            {{ t('rateSettings') }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-dark"
+            :disabled="!hasItems"
+            @click="openReport"
+          >
+            {{ t('exportReport') }}
+          </button>
         </div>
       </div>
     </main>
-    
-    <footer class="app-footer">
-      <div class="container">
-        <p>© {{ currentYear }} 現金流計算器 | 使用 Vue 3 和 Pinia 構建</p>
+
+    <footer class="border-top bg-white py-3">
+      <div class="container text-center text-secondary small">
+        © {{ currentYear }} {{ t('brand') }} | {{ t('footerBuilt') }}
       </div>
     </footer>
+
+    <RateSettings ref="rateModal" />
+    <ReportModal ref="reportModal" />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import IncomeTable from './components/IncomeTable.vue';
-import ExpenseTable from './components/ExpenseTable.vue';
-import ResultCard from './components/ResultCard.vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import AppHeader from './components/AppHeader.vue';
+import ItemTable from './components/ItemTable.vue';
+import SummaryBar from './components/SummaryBar.vue';
 import RateSettings from './components/RateSettings.vue';
+import ReportModal from './components/ReportModal.vue';
+import { useFinanceStore } from './stores/financeStore';
+import { useI18n } from './i18n';
 
-// 計算當前年份
+const financeStore = useFinanceStore();
+const { t, locale } = useI18n();
+const rateModal = ref(null);
+const reportModal = ref(null);
+
 const currentYear = computed(() => new Date().getFullYear());
-</script>
+const hasItems = computed(
+  () =>
+    financeStore.incomeItems.length > 0 || financeStore.expenseItems.length > 0
+);
 
-<style>
-/* 導入全局樣式 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
-</style> 
+const seedDefaults = () => {
+  financeStore.initializeItems({
+    incomeName: t('defaultIncomeName'),
+    expenseName: t('defaultExpenseName'),
+  });
+};
+
+onMounted(() => {
+  seedDefaults();
+  document.title = `${t('brand')} | ${t('tagline')}`;
+  document.documentElement.lang = locale.value === 'en' ? 'en' : 'zh-Hant';
+});
+
+watch(locale, () => {
+  document.title = `${t('brand')} | ${t('tagline')}`;
+  document.documentElement.lang = locale.value === 'en' ? 'en' : 'zh-Hant';
+});
+
+const openRates = () => {
+  rateModal.value?.show();
+};
+
+const openReport = () => {
+  reportModal.value?.show();
+};
+</script>
